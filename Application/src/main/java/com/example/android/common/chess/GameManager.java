@@ -47,6 +47,10 @@ public class GameManager {
         myColour = colour;
     }
 
+    public boolean amIWhite() {
+	    return myColour == Colour.White;
+    }
+
     public boolean isMyTurn() { return myColour == turn; }
 
     public String getMovement() { return movement; }

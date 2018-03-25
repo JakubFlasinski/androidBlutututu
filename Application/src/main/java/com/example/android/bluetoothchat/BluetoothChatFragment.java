@@ -358,9 +358,11 @@ public class BluetoothChatFragment extends Fragment {
                     } else {
                         Toast.makeText(getActivity(), "You are white", Toast.LENGTH_SHORT).show();
                     }
+                    displayBoard();
                 }
             } else {
                 for(String element : elements) {
+                    Toast.makeText(getActivity(), "Your turn", Toast.LENGTH_SHORT).show();
                     String[] coordinates = element.split(",");
                     GameManager.getInstance().onClick(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
                     boardGridBox.invalidateViews();

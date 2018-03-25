@@ -50,7 +50,9 @@ public class PieceAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        Field field = board[position/8][position%8];
+        int x = position/8;
+        int y = position%8;
+        Field field = board[x][y];
         Piece piece = field.getPiece();
         if (piece != null) {
             imageView.setImageResource(piece.getDrawableId());
