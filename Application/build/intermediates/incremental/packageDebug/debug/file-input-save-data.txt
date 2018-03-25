@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Mar 25 21:41:12 CEST 2018
+#Sun Mar 25 22:37:25 CEST 2018
 2.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/50
 5.set=DEX
 0.path=classes.dex

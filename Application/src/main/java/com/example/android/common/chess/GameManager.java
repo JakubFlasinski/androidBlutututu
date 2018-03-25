@@ -8,6 +8,7 @@ public class GameManager {
 	private int selectedY = -1;
 	private Colour turn;
 	private Colour myColour = Colour.White;
+	private String movement = null;
 	
 	private static GameManager gameManager = null;
 	
@@ -31,23 +32,32 @@ public class GameManager {
             board.getBoard()[x][y].setPiece(board.getBoard()[selectedX][selectedY].getPiece());
             board.getBoard()[selectedX][selectedY].empty();
             board.clearHighlights();
+            setMovement(x, y);
             turnPasses();
         }
     }
+
+    public Field[][] getBoard() {
+        return board.getBoard();
+    }
+
+    public void setMyColour(Colour colour) {
+        myColour = colour;
+    }
+
+    public boolean isMyTurn() { return myColour == turn; }
+
+    public String getMovement() { return movement; }
+
+    public void nullifyLastSavedMovement() { movement = null; }
 
 	private boolean isCorrectPieceSelected(Field field) {
         return field.getPiece() != null && field.getPiece().getColour() == turn;
     }
 
-	public Field[][] getBoard() {
-		return board.getBoard();
-	}
-
-	public void setMyColour(Colour colour) {
-	    myColour = colour;
+    private void setMovement(int x, int y) {
+	    movement = String.format("%d,%dTO%d,%d", selectedX, selectedY, x, y);
     }
-
-    public boolean myTurn() { return myColour == turn; }
 
 	private void turnPasses() {
 		selectedX = -1;

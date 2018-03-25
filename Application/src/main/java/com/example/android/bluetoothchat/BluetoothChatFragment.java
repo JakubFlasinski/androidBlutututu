@@ -169,8 +169,21 @@ public class BluetoothChatFragment extends Fragment {
         boardGridBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                GameManager.getInstance().onClick(position/8, position%8);
-                boardGridBox.invalidateViews();
+                if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+                    Toast.makeText(getActivity(), R.string.not_connected, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (GameManager.getInstance().isMyTurn()) {
+                    GameManager.getInstance().onClick(position/8, position%8);
+                    boardGridBox.invalidateViews();
+                    if (GameManager.getInstance().getMovement() != null) {
+                        sendMessage(GameManager.getInstance().getMovement());
+                        GameManager.getInstance().nullifyLastSavedMovement();
+                        Toast.makeText(getActivity(), "End of turn", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Not your turn", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
