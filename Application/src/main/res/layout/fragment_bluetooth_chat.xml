@@ -26,23 +26,11 @@
         android:layout_weight="1"
         android:numColumns="8" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button_start"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <EditText
-            android:id="@+id/edit_text_out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/button_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send" />
-    </LinearLayout>
-
+        android:text="Start Game"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/default_gap"/>
 </LinearLayout>

@@ -1,4 +1,4 @@
-#Sun Mar 25 22:37:25 CEST 2018
+#Sun Mar 25 23:45:51 CEST 2018
 base.0=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/40
 path.0=classes.dex
 renamed.0=classes.dex

@@ -45,6 +45,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.common.chess.Colour;
 import com.example.android.common.chess.GameManager;
 import com.example.android.common.logger.Log;
 
@@ -62,8 +63,7 @@ public class BluetoothChatFragment extends Fragment {
 
     // Layout Views
     private GridView boardGridBox;
-    private EditText mOutEditText;
-    private Button mSendButton;
+    private Button startButton;
 
     /**
      * Name of the connected device
@@ -153,8 +153,12 @@ public class BluetoothChatFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         boardGridBox = (GridView) view.findViewById(R.id.in);
-        mOutEditText = (EditText) view.findViewById(R.id.edit_text_out);
-        mSendButton = (Button) view.findViewById(R.id.button_send);
+        startButton = (Button) view.findViewById(R.id.button_start);
+    }
+
+    public void displayBoard() {
+        startButton.setVisibility(View.INVISIBLE);
+        boardGridBox.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -173,6 +177,7 @@ public class BluetoothChatFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.not_connected, Toast.LENGTH_SHORT).show();
                     return;
                 }
+                System.out.println(GameManager.getInstance().isMyTurn());
                 if (GameManager.getInstance().isMyTurn()) {
                     GameManager.getInstance().onClick(position/8, position%8);
                     boardGridBox.invalidateViews();
@@ -189,14 +194,27 @@ public class BluetoothChatFragment extends Fragment {
         });
 
         // Initialize the send button with a listener that for click events
-        mSendButton.setOnClickListener(new View.OnClickListener() {
+        startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+                    Toast.makeText(getActivity(), R.string.not_connected, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 // Send a message using content of the edit text widget
                 View view = getView();
                 if (null != view) {
-                    TextView textView = (TextView) view.findViewById(R.id.edit_text_out);
-                    String message = textView.getText().toString();
+                    double rand = Math.random();
+                    String message;
+                    if (rand < 0.5) {
+                        message = "YOU:black";
+                        Toast.makeText(getActivity(), "You are white", Toast.LENGTH_SHORT).show();
+                    } else {
+                        GameManager.getInstance().setMyColour(Colour.Black);
+                        message = "YOU:white";
+                        Toast.makeText(getActivity(), "You are black", Toast.LENGTH_SHORT).show();
+                    }
                     sendMessage(message);
+                    displayBoard();
                 }
             }
         });
@@ -240,7 +258,6 @@ public class BluetoothChatFragment extends Fragment {
 
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer.setLength(0);
-            mOutEditText.setText(mOutStringBuffer);
         }
     }
 
@@ -291,7 +308,6 @@ public class BluetoothChatFragment extends Fragment {
                     switch (msg.arg1) {
                         case BluetoothChatService.STATE_CONNECTED:
                             setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
-                            //mConversationArrayAdapter.clear();
                             break;
                         case BluetoothChatService.STATE_CONNECTING:
                             setStatus(R.string.title_connecting);
@@ -306,13 +322,12 @@ public class BluetoothChatFragment extends Fragment {
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
-                    //mConversationArrayAdapter.add("Me:  " + writeMessage);
                     break;
                 case Constants.MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
-                    //mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
+                    handleReceivedMessage(readMessage);
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -328,6 +343,28 @@ public class BluetoothChatFragment extends Fragment {
                                 Toast.LENGTH_SHORT).show();
                     }
                     break;
+            }
+        }
+
+        private void handleReceivedMessage(String readMessage) {
+            String[] elements = readMessage.split("TO");
+            if (elements.length < 2) {
+                elements = readMessage.split(":");
+                System.out.println(elements[0]);
+                if (elements[0].equals("YOU")) {
+                    if (elements[1].equals("black")) {
+                        GameManager.getInstance().setMyColour(Colour.Black);
+                        Toast.makeText(getActivity(), "You are black", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "You are white", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } else {
+                for(String element : elements) {
+                    String[] coordinates = element.split(",");
+                    GameManager.getInstance().onClick(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
+                    boardGridBox.invalidateViews();
+                }
             }
         }
     };

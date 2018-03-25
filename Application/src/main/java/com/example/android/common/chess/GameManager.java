@@ -28,6 +28,8 @@ public class GameManager {
             board.getBoard()[x][y].getPiece().movementCheck(board, turn, x, y);
             selectedX = x;
             selectedY = y;
+            System.out.println(selectedX);
+            System.out.println(selectedY);
         } else if (board.getBoard()[x][y].isHighlighted()) {
             board.getBoard()[x][y].setPiece(board.getBoard()[selectedX][selectedY].getPiece());
             board.getBoard()[selectedX][selectedY].empty();
