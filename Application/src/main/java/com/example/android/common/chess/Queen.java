@@ -1,5 +1,7 @@
 package com.example.android.common.chess;
 
+import com.example.android.bluetoothchat.R;
+
 public class Queen extends Piece{
 	
 	public Queen(Colour colour) {
@@ -15,6 +17,12 @@ public class Queen extends Piece{
 		Movement.upLeft(board, turn, x, y);
 		Movement.downRight(board, turn, x, y);
 		Movement.downLeft(board, turn, x, y);
+	}
+
+	private String type = "queen";
+
+	public int getDrawableId() {
+		return getColour() == Colour.Black ? R.drawable.queen_black : R.drawable.queen_white;
 	}
 
 }

@@ -19,13 +19,12 @@
               android:layout_height="match_parent"
               android:orientation="vertical" >
 
-    <ListView
+    <GridView
         android:id="@+id/in"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll" />
+        android:numColumns="8" />
 
     <LinearLayout
         android:layout_width="match_parent"

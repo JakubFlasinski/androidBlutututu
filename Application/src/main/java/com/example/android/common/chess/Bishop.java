@@ -1,5 +1,7 @@
 package com.example.android.common.chess;
 
+import com.example.android.bluetoothchat.R;
+
 public class Bishop extends Piece{
 
 	public Bishop(Colour colour) {
@@ -13,4 +15,8 @@ public class Bishop extends Piece{
 		Movement.downLeft(board, turn, x, y);
 	}
 
+	private String type = "bishop";
+	public int getDrawableId() {
+		return getColour() == Colour.Black ? R.drawable.bishop_black : R.drawable.bishop_white;
+	}
 }

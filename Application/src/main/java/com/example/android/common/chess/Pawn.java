@@ -1,5 +1,7 @@
 package com.example.android.common.chess;
 
+import com.example.android.bluetoothchat.R;
+
 public class Pawn extends Piece{
 
 	public Pawn(Colour colour) {
@@ -10,4 +12,8 @@ public class Pawn extends Piece{
 		Movement.pawnMovement(board, turn, x, y);
 	}
 
+	private String type = "pawn";
+	public int getDrawableId() {
+		return getColour() == Colour.Black ? R.drawable.pawn_black : R.drawable.pawn_white;
+	}
 }

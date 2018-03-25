@@ -1,6 +1,6 @@
 package com.example.android.common.chess;
 
-public class Field {
+public class  Field {
 
 	private Piece piece;
 	private Colour colour;
