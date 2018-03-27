@@ -22,18 +22,21 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -166,9 +169,7 @@ public class BluetoothChatFragment extends Fragment {
      */
     private void setupBoard() {
 
-        // Initialize the array adapter for the conversation thread
-        boardAdapter = new PieceAdapter(getActivity());
-
+        boardAdapter = new PieceAdapter(getActivity(), getResources());
         boardGridBox.setAdapter(boardAdapter);
         boardGridBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -181,7 +182,7 @@ public class BluetoothChatFragment extends Fragment {
                 if (GameManager.getInstance().isMyTurn()) {
                     GameManager.getInstance().onClick(position/8, position%8);
                     boardGridBox.invalidateViews();
-                    if (GameManager.getInstance().getMovement() != null) {
+                    if (!GameManager.getInstance().isMyTurn()) {
                         sendMessage(GameManager.getInstance().getMovement());
                         GameManager.getInstance().nullifyLastSavedMovement();
                         Toast.makeText(getActivity(), "End of turn", Toast.LENGTH_SHORT).show();
@@ -194,7 +195,7 @@ public class BluetoothChatFragment extends Fragment {
         });
 
         // Initialize the send button with a listener that for click events
-        startButton.setOnClickListener(new View.OnClickListener() {
+        startButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
                     Toast.makeText(getActivity(), R.string.not_connected, Toast.LENGTH_SHORT).show();

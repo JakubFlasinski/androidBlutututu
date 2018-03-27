@@ -1,8 +1,13 @@
 package com.example.android.bluetoothchat;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -19,10 +24,14 @@ import com.example.android.common.chess.Piece;
 public class PieceAdapter extends BaseAdapter {
     private Context mContext;
     private Field[][] board;
+    private Resources r;
+    private int width = 720;
 
-    public PieceAdapter(Context c) {
+    public PieceAdapter(Context c, Resources r) {
         mContext = c;
         this.board = GameManager.getInstance().getBoard();
+        this.r = r;
+        this.width = r.getSystem().getDisplayMetrics().widthPixels;
     }
 
     public int getCount() {
@@ -43,13 +52,12 @@ public class PieceAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setLayoutParams(new GridView.LayoutParams(width/9, width/9));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
         } else {
             imageView = (ImageView) convertView;
         }
-
         int x = position/8;
         int y = position%8;
         Field field = board[x][y];
@@ -57,9 +65,22 @@ public class PieceAdapter extends BaseAdapter {
         if (piece != null) {
             imageView.setImageResource(piece.getDrawableId());
         } else {
-            imageView.setImageResource(field.isHighlighted() ? R.drawable.fuchsia : (field.getColour() == Colour.Black ? R.drawable.black_tile : R.drawable.white_tile));
+           // imageView.setImageResource(fieldDrawableId(field));
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            imageView.setBackground(r.getDrawable(fieldDrawableId(field)));
         }
 
         return imageView;
+    }
+
+    private int fieldDrawableId(Field field) {
+        if (field.isHighlighted())
+            return R.drawable.fuchsia;
+        else if(field.getColour() == Colour.Black)
+            return R.drawable.black_tile;
+        else
+            return R.drawable.white_tile;
     }
 }

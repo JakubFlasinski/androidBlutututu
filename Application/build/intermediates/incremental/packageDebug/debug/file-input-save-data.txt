@@ -1,17 +1,17 @@
 #Internal package file, do not edit.
-#Mon Mar 26 00:28:31 CEST 2018
-2.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/50
+#Tue Mar 27 11:10:32 CEST 2018
+2.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/87
 5.set=DEX
 0.path=classes.dex
 2.baseType=DIRECTORY
-3.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/54
+3.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/91
 2.set=DEX
 1.path=classes.dex
-4.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/49
+4.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/92
 count=6
 5.baseType=DIRECTORY
 2.path=classes.dex
-5.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/51
+5.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/90
 4.set=DEX
 3.path=classes.dex
 3.baseType=DIRECTORY
@@ -19,9 +19,9 @@ count=6
 4.path=classes.dex
 1.baseType=DIRECTORY
 5.path=classes.dex
-0.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/52
+0.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/88
 0.baseType=DIRECTORY
 3.set=DEX
-1.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/53
+1.base=/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/transforms/dexMerger/debug/89
 4.baseType=DIRECTORY
 0.set=DEX
