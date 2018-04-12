@@ -2471,10 +2471,11 @@ public final class R {
     public static final int queen_white=0x7f06006d;
     public static final int rook_black=0x7f06006e;
     public static final int rook_white=0x7f06006f;
-    public static final int tile=0x7f060070;
-    public static final int tooltip_frame_dark=0x7f060071;
-    public static final int tooltip_frame_light=0x7f060072;
-    public static final int white_tile=0x7f060073;
+    public static final int tenor=0x7f060070;
+    public static final int tile=0x7f060071;
+    public static final int tooltip_frame_dark=0x7f060072;
+    public static final int tooltip_frame_light=0x7f060073;
+    public static final int white_tile=0x7f060074;
   }
   public static final class id {
     public static final int ALT=0x7f070000;
