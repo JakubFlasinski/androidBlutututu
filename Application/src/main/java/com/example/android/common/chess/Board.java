@@ -42,34 +42,45 @@ public class Board {
 		board[7][7].setPiece(new Rook(Colour.Black));
 	}
 
-//	public void click(Colour player, int x, int y) {
-//		if (!selectionActive) {
-//			if (board[x][y].getPiece().getColour() == player) {
-//				board[x][y].getPiece().movementCheck();
-//				selectionActive = true;
-//			}else if(board[x][y].isHighlighted()){
-//				board[x][y].setPiece(board[selectedX][selectedY].getPiece());
-//				board[selectedX][selectedY].empty();
-//			}
-//		}
-//	}
-	
 	public boolean checkCheck(Colour colour) {
 		boolean isChecked = false;
 		int[] position = this.findKing(colour);
 		loop: for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if(board[i][j].getPiece()!=null)
-					if(board[i][j].getPiece().getColour()!=colour) {
+				if (board[i][j].getPiece() != null)
+					if (board[i][j].getPiece().getColour() != colour) {
 						board[i][j].getPiece().movementCheck(this, colour, i, j);
-						if(board[position[0]][position[1]].isHighlighted()) {
-							isChecked=true;
+						if (board[position[0]][position[1]].isHighlighted()) {
+							isChecked = true;
 							break loop;
 						}
 					}
-				}
 			}
+		}
+		clearHighlights();
 		return isChecked;
+	}
+
+	public boolean mateCheck(Colour colour) {
+		boolean mate = true;
+		check: for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (board[i][j].getPiece() != null)
+					if (board[i][j].getPiece().getColour() == colour) {
+						board[i][j].getPiece().movementCheck(this, colour, i, j);
+						for (int m = 0; i < 8; i++) {
+							for (int n = 0; j < 8; j++) {
+								if (this.getBoard()[m][n].isHighlighted()) {
+									mate = false;
+									break check;
+								}
+							}
+						}
+					}
+			}
+		}
+		clearHighlights();
+		return mate;
 	}
 
 	public void clearHighlights() {
@@ -87,19 +98,24 @@ public class Board {
 	public void setBoard(Field[][] board) {
 		this.board = board;
 	}
-	
+
 	public int[] findKing(Colour colour) {
 		int[] coords = new int[2];
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if(board[i][j].getPiece()!=null)
-					if(board[i][j].getPiece().getColour()==colour)
-						if(board[i][j].getPiece() instanceof King) {
-							coords[0]=i;
-							coords[1]=j;
+				if (board[i][j].getPiece() != null)
+					if (board[i][j].getPiece().getColour() == colour)
+						if (board[i][j].getPiece() instanceof King) {
+							coords[0] = i;
+							coords[1] = j;
 						}
 			}
 		}
 		return coords;
+	}
+
+	public void movePiece(int x, int y, int selectedX, int selectedY) {
+		board[x][y].setPiece(board[selectedX][selectedY].getPiece());
+		board[selectedX][selectedY].empty();
 	}
 }

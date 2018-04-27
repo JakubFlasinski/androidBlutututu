@@ -179,6 +179,7 @@ public class BluetoothChatFragment extends Fragment {
                     return;
                 }
                 System.out.println(GameManager.getInstance().isMyTurn());
+
                 if (GameManager.getInstance().isMyTurn()) {
                     GameManager.getInstance().onClick(position/8, position%8);
                     boardGridBox.invalidateViews();

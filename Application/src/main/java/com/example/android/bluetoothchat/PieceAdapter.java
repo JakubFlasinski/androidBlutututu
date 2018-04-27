@@ -64,6 +64,8 @@ public class PieceAdapter extends BaseAdapter {
         Piece piece = field.getPiece();
         if (piece != null) {
             imageView.setImageResource(piece.getDrawableId());
+        } else {
+            imageView.setImageResource(fieldDrawableId(field));
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

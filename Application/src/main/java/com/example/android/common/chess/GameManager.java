@@ -1,7 +1,7 @@
 package com.example.android.common.chess;
 
 public class GameManager {
-	
+
 	private Board board;
 	private boolean selectionActive = false;
 	private int selectedX = -1;
@@ -9,20 +9,20 @@ public class GameManager {
 	private Colour turn;
 	private Colour myColour = Colour.White;
 	private String movement = null;
-	
+
 	private static GameManager gameManager = null;
-	
+
 	public static GameManager getInstance() {
 		if (gameManager == null)
 			gameManager = new GameManager();
 		return gameManager;
 	}
-	
+
 	public GameManager() {
 		this.board = new Board();
 		this.turn = Colour.White;
 	}
-	
+
 	public void onClick(int x, int y) {
         if (isCorrectPieceSelected(board.getBoard()[x][y]) && selectedX == -1) {
             board.getBoard()[x][y].getPiece().movementCheck(board, turn, x, y);
