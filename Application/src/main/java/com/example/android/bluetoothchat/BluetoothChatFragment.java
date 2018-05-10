@@ -361,6 +361,7 @@ public class BluetoothChatFragment extends Fragment {
                         Toast.makeText(getActivity(), "You are white", Toast.LENGTH_SHORT).show();
                     }
                     displayBoard();
+                    boardGridBox.invalidateViews();
                 }
             } else {
                 for(String element : elements) {

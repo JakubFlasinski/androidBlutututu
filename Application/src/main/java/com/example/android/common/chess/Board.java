@@ -1,5 +1,6 @@
 package com.example.android.common.chess;
 
+
 public class Board {
 
 	public Field[][] board;
@@ -95,6 +96,16 @@ public class Board {
 		return board;
 	}
 
+	public Field[][] getReversedBoard() {
+		Field[][] newBoard = new Field[8][8];
+		for(int i = 7; i >= 0; i--) {
+			for(int j = 7; j >= 0; j--) {
+				newBoard[7 - i][7 - j] = board[i][j];
+			}
+		}
+		return newBoard;
+	}
+
 	public void setBoard(Field[][] board) {
 		this.board = board;
 	}
@@ -118,4 +129,16 @@ public class Board {
 		board[x][y].setPiece(board[selectedX][selectedY].getPiece());
 		board[selectedX][selectedY].empty();
 	}
+
+	public Board clone(){
+		Board clone = new Board();
+		clone.setBoard(new Field[8][8]);
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				clone.getBoard()[i][j]=board[i][j].clone();
+			}
+		}
+		return clone;
+	}
 }
+

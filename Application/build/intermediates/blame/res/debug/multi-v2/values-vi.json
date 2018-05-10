@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/jakub/Downloads/android-BluetoothChat-master/Application/build/intermediates/incremental/mergeDebugResources/merged.dir/values-vi/values-vi.xml",
+            "outputFile": "/Users/jakub/ror/androidBlutututu/Application/build/intermediates/incremental/mergeDebugResources/merged.dir/values-vi/values-vi.xml",
             "map": [
                 {
                     "source": "/Users/jakub/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/1155bfee476b082186cfef0ae98343f4/res/values-vi/values-vi.xml",

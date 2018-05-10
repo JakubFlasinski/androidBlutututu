@@ -51,4 +51,9 @@ public class  Field {
 		this.colour = colour;
 	}
 
+	public Field clone(){
+		Field clone = new Field(colour);
+		clone.setPiece(piece);
+		return clone;
+	}
 }
